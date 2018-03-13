@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "30979008551",
+    "firebase_url": "https://emerald-mission-197212.firebaseio.com",
+    "project_id": "emerald-mission-197212",
+    "storage_bucket": "emerald-mission-197212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30979008551:android:b0e7f7b532b49e8d",
+        "android_client_info": {
+          "package_name": "com.bestfriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30979008551-2p64u7kmqq05d2s3rp89vft85e5g2kig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bestfriend",
+            "certificate_hash": "da23f3f43d4f99902219cadc255276b1405c8ccc"
+          }
+        },
+        {
+          "client_id": "30979008551-p6vvv3dobnift6ovv8gj5nncmb5nsf1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaI-RBg-jpWufI9CJVnXYXQEvqMGfHe_k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30979008551-p6vvv3dobnift6ovv8gj5nncmb5nsf1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
