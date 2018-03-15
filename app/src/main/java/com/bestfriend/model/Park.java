@@ -11,15 +11,15 @@ import com.google.gson.annotations.SerializedName;
 public class Park
 {
 //	@PrimaryKey
-	@SerializedName("id")
+	@SerializedName("_id")
 	private String id;
 
 //	@ColumnInfo(name = "park_name")
-	@SerializedName("park_name")
+	@SerializedName("name")
 	private String parkName;
 
 //	@ColumnInfo(name = "park_address")
-	@SerializedName("park_address")
+	@SerializedName("address")
 	private String address;
 
     @SerializedName("lat")

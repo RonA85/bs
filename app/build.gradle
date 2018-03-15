@@ -56,6 +56,10 @@ dependencies {
 
     //Facebook
     compile('com.facebook.android:facebook-android-sdk:4.27.0')
+
+    //Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
