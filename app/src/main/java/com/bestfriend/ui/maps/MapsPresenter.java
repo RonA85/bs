@@ -38,7 +38,13 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
     private void loadData() {
 //        loadUsers();
+        loadParks();
         loadUsersTest();
+    }
+
+    private void loadParks() {
+          /*TODO Hila : get the parks from the server
+        * */
     }
 
 
