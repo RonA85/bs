@@ -25,7 +25,6 @@ public interface ParkDao {
             + "last_name LIKE :last LIMIT 1")
     Park findByName(String first, String last);
 
-
     @Insert
     void insertAll(Park... parks);
 }
