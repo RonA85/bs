@@ -20,10 +20,16 @@ public class User
 	private String email;
 	@SerializedName("phone")
 	private String phone;
+	@SerializedName("lat")
+	private float lat;
+	@SerializedName("lng")
+	private float lng;
 	@SerializedName("dogList")
 	private List<Dog> dogList;
 	@SerializedName("images")
 	private List<String> images;
+
+
 	
 	public String getId()
 	{

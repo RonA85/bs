@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Best-Friend.iml" filepath="$PROJECT_DIR$/Best-Friend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BestFriend.iml" filepath="$PROJECT_DIR$/BestFriend.iml" />
+      <module fileurl="file://C:\Users\Avishay Peretz\AndroidStudioProjects\Best-Friend\BestFriend.iml" filepath="C:\Users\Avishay Peretz\AndroidStudioProjects\Best-Friend\BestFriend.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
