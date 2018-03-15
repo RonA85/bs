@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Create and launch sign-in intent
-startSplashTimer();
+        startSplashTimer();
 
     }
 
