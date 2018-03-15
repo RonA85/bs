@@ -18,7 +18,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ParkDao parkDao();
 
-
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
