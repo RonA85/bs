@@ -1,6 +1,11 @@
 package com.bestfriend.ui.maps;
 
+import android.util.Log;
+
+import com.bestfriend.model.Park;
 import com.bestfriend.model.User;
+import com.bestfriend.network.ApiCalls;
+import com.bestfriend.network.DataObserver;
 import com.bestfriend.ui.base.BasePresenter;
 import com.bestfriend.ui.base.BaseView;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,14 +42,22 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
 
     private void loadData() {
-//        loadUsers();
+        loadUsers();
         loadParks();
-        loadUsersTest();
+//        loadUsersTest();
     }
 
     private void loadParks() {
           /*TODO Hila : get the parks from the server
         * */
+        DataObserver<List<Park>> observer = new DataObserver<List<Park>>() {
+            @Override
+            public void onRecieved(List<Park> parks) {
+                Log.d("Parks recieved", "Recieved!" + parks.toString());
+            }
+        };
+
+        ApiCalls.getParks(observer);
     }
 
 
@@ -62,6 +75,15 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
         /*TODO Hila : get the users from the server
         *       then, parse the users to the mUsersList
         * */
+        DataObserver<List<User>> observer = new DataObserver<List<User>>() {
+            @Override
+            public void onRecieved(List<User> users) {
+                Log.d("Parks recieved", "Recieved!" + users.toString());
+            }
+        };
+
+        ApiCalls.getUsers(observer);
+
     }
 
 
