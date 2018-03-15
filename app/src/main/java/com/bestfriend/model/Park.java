@@ -1,10 +1,6 @@
 package com.bestfriend.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -27,9 +23,9 @@ public class Park
 	private String address;
 
     @SerializedName("lat")
-    private float lat;
+    private double lat;
     @SerializedName("lng")
-    private float lng;
+    private double lng;
 
 	public String getId()
 	{
@@ -46,11 +42,11 @@ public class Park
 		return address;
 	}
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public float getLng() {
+    public double getLng() {
         return lng;
     }
 }

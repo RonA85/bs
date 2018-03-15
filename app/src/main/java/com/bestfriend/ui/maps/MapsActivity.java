@@ -36,22 +36,27 @@ import butterknife.OnClick;
 /**
  * Created by Avishay on 06/03/2018.
  */
-public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
+public class MapsActivity extends BaseActivity implements OnMapReadyCallback , MapsContract.View{
 
     private static final float DEFAULT_ZOOM = 17.0f;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 7485;
 
     private GoogleMap mMap;
     private boolean mLocationPermissionGranted;
-    private LatLng mDefaultLocation = new LatLng(29.55805, 34.94821);
+    private LatLng mDefaultLocation = new LatLng(32.070080, 34.794145);
     private Location mLastKnownLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     //	private GeoDataClient mGeoDataClient;
     //	private PlaceDetectionClient mPlaceDetectionClient;
 
+    private MapsPresenter mPresenter;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(mPresenter == null){
+            mPresenter = new MapsPresenter();
+        }
+        mPresenter.attachView(this);
         // Construct a GeoDataClient.
         //		mGeoDataClient = Places.getGeoDataClient(this, null);
 
@@ -127,6 +132,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        mPresenter.setUsersAsMarkersOnMap();
     }
 
     private void updateLocationUI() {
@@ -203,4 +210,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
         startActivity(loginIntent);
         finish();
     }
+
+    @Override
+    public GoogleMap getMap() {
+        return mMap;
+    }
+
+
 }

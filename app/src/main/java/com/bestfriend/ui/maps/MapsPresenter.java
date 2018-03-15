@@ -3,29 +3,56 @@ package com.bestfriend.ui.maps;
 import com.bestfriend.model.User;
 import com.bestfriend.ui.base.BasePresenter;
 import com.bestfriend.ui.base.BaseView;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Avishay on 07/03/2018.
  */
 
-public class MapsPresenter extends BasePresenter {
+public class MapsPresenter extends BasePresenter<MapsContract.View> implements MapsContract.Presenter {
 
     private List<User> mUsersList;
 
     @Override
-    public void attachView(BaseView view) {
+    public void attachView(MapsContract.View view) {
         super.attachView(view);
         loadData();
     }
 
-    private void loadData() {
-        loadUsers();
+    public void setUsersAsMarkersOnMap() {
+        if (mUsersList != null) {
+            GoogleMap map = getView().getMap();
+            for (User user : mUsersList) {
+                LatLng latLng = new LatLng(user.getLat() , user.getLng());
+                map.addMarker(new MarkerOptions().position(latLng).title(user.getFirstName()));
+            }
 
+        }
     }
 
-    private void loadUsers() {
+
+    private void loadData() {
+//        loadUsers();
+        loadUsersTest();
+    }
+
+
+    private void loadUsersTest() {
+        mUsersList = new ArrayList<>();
+        mUsersList.add(new User("1", "itay", "cobo", "itay@gmail.com", "0123", 32.070080f, 34.794145f, null, null));
+        mUsersList.add(new User("2", "itay", "cobo", "itay@gmail.com", "0123", 32.070085f, 34.794145f, null, null));
+        mUsersList.add(new User("3", "itay", "cobo", "itay@gmail.com", "0123", 32.070090f, 34.794145f, null, null));
+        mUsersList.add(new User("4", "itay", "cobo", "itay@gmail.com", "0123", 32.070080f, 34.794155f, null, null));
+        mUsersList.add(new User("5", "itay", "cobo", "itay@gmail.com", "0123", 32.070080f, 34.794165f, null, null));
+    }
+
+    @Override
+    public void loadUsers() {
         /*TODO Hila : get the users from the server
         *       then, parse the users to the mUsersList
         * */

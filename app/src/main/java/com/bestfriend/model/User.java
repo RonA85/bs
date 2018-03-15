@@ -21,16 +21,28 @@ public class User
 	@SerializedName("phone")
 	private String phone;
 	@SerializedName("lat")
-	private float lat;
+	private double lat;
 	@SerializedName("lng")
-	private float lng;
+	private double lng;
 	@SerializedName("dogList")
 	private List<Dog> dogList;
 	@SerializedName("images")
 	private List<String> images;
 
 
-	
+	//Test constructor
+	public User(String id, String firstName, String lastName, String email, String phone, double lat, double lng, List<Dog> dogList, List<String> images) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
+		this.lat = lat;
+		this.lng = lng;
+		this.dogList = dogList;
+		this.images = images;
+	}
+
 	public String getId()
 	{
 		return id;
@@ -64,5 +76,13 @@ public class User
 	public List<String> getImages()
 	{
 		return images;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLng() {
+		return lng;
 	}
 }
