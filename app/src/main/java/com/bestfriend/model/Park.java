@@ -27,6 +27,16 @@ public class Park
     @SerializedName("lng")
     private double lng;
 
+
+    //Test Constructor
+	public Park(String id, String parkName, String address, double lat, double lng) {
+		this.id = id;
+		this.parkName = parkName;
+		this.address = address;
+		this.lat = lat;
+		this.lng = lng;
+	}
+
 	public String getId()
 	{
 		return id;

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bestfriend.R;
+import com.bestfriend.ui.adapters.InfoWindowPinGardenAdapter;
 import com.bestfriend.ui.base.BaseActivity;
 import com.bestfriend.ui.login.LoginActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -121,7 +122,9 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        //Set Custom InfoWindow Adapter
+        InfoWindowPinGardenAdapter adapter = new InfoWindowPinGardenAdapter( getLayoutInflater());
+        mMap.setInfoWindowAdapter(adapter);
         //		// Add a marker in Sydney and move the camera
         //		LatLng sydney = new LatLng(-34, 151);
         //		mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -134,6 +137,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
         getDeviceLocation();
 
         mPresenter.setUsersAsMarkersOnMap();
+        mPresenter.setParksAsMarkersOnMap();
     }
 
     private void updateLocationUI() {
@@ -172,7 +176,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
                             mLastKnownLocation = (Location) task.getResult();
                             LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
-                            mMap.addMarker(new MarkerOptions().position(latLng).title("I'm here!"));
+//                            mMap.addMarker(new MarkerOptions().position(latLng).title("I'm here!"));
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
