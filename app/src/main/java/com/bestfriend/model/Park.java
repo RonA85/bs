@@ -11,42 +11,46 @@ import com.google.gson.annotations.SerializedName;
  * Created by Avishay on 06/03/2018.
  */
 
-@Entity
+//@Entity
 public class Park
 {
-	@PrimaryKey
+//	@PrimaryKey
 	@SerializedName("id")
 	private String id;
 
-	@ColumnInfo(name = "park_name")
-	@SerializedName("parkName")
+//	@ColumnInfo(name = "park_name")
+	@SerializedName("park_name")
 	private String parkName;
 
-	@ColumnInfo(name = "park_address")
-	@SerializedName("address")
+//	@ColumnInfo(name = "park_address")
+	@SerializedName("park_address")
 	private String address;
 
-	@ColumnInfo(name = "park_latlng")
-	@SerializedName("parkLatLng")
-	private LatLng parkLatLng;
-	
+    @SerializedName("lat")
+    private float lat;
+    @SerializedName("lng")
+    private float lng;
+
 	public String getId()
 	{
 		return id;
 	}
-	
+
 	public String getParkName()
 	{
 		return parkName;
 	}
-	
+
 	public String getAddress()
 	{
 		return address;
 	}
-	
-	public LatLng getParkLatLng()
-	{
-		return parkLatLng;
-	}
+
+    public float getLat() {
+        return lat;
+    }
+
+    public float getLng() {
+        return lng;
+    }
 }

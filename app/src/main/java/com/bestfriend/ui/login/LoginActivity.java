@@ -26,7 +26,7 @@ import java.util.List;
 public class LoginActivity extends BaseActivity {
 
     private static final int RC_SIGN_IN = 9017;
-    private static final long SPLASH_DELAY = 3 * 1000;
+    private static final long SPLASH_DELAY = 1 * 1000;
 
     // Choose authentication providers
     List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -48,13 +48,16 @@ public class LoginActivity extends BaseActivity {
         timerHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .setLogo(R.mipmap.splash)
-                                .build(),
-                        RC_SIGN_IN);
+                //TODO: allow it after working on map
+//                startActivityForResult(
+//                        AuthUI.getInstance()
+//                                .createSignInIntentBuilder()
+//                                .setAvailableProviders(providers)
+//                                .setLogo(R.mipmap.splash)
+//                                .build(),
+//                        RC_SIGN_IN);
+
+                goToMapsActivity();
             }
         }, SPLASH_DELAY);
     }
