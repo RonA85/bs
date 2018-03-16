@@ -26,7 +26,8 @@ public class Park
     private double lat;
     @SerializedName("lng")
     private double lng;
-
+	@SerializedName("image")
+	private String image;
 
     //Test Constructor
 	public Park(String id, String parkName, String address, double lat, double lng) {
@@ -59,4 +60,8 @@ public class Park
     public double getLng() {
         return lng;
     }
+
+	public String getImage() {
+		return image;
+	}
 }

@@ -51,8 +51,8 @@ public class LoginActivity extends BaseActivity {
 //                                .build(),
 //                        RC_SIGN_IN);
 
-                //goToMapsActivity();
-                goToRegisterActivity();
+                goToMapsActivity();
+//                goToRegisterActivity();
             }
         }, SPLASH_DELAY);
     }

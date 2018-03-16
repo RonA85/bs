@@ -5,18 +5,26 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bestfriend.R;
+import com.bestfriend.model.Park;
+import com.bestfriend.model.User;
+import com.bestfriend.ui.Activities.ProfileActivity;
 import com.bestfriend.ui.adapters.InfoWindowPinGardenAdapter;
 import com.bestfriend.ui.base.BaseActivity;
 import com.bestfriend.ui.login.LoginActivity;
+import com.bestfriend.ui.utils.Constants;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,14 +35,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.clustering.ClusterManager;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -42,7 +49,7 @@ import butterknife.OnClick;
  */
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback, MapsContract.View {
 
-    private static final float DEFAULT_ZOOM = 17.0f;
+    private static final float DEFAULT_ZOOM = 13.0f;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 7485;
 
     private GoogleMap mMap;
@@ -54,6 +61,17 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     //	private PlaceDetectionClient mPlaceDetectionClient;
 
     private MapsPresenter mPresenter;
+    private BottomSheetBehavior mBottomSheetBehavior;
+
+    @BindView(R.id.rv_users_garden)
+     RecyclerView mRvUsersGarden;
+    @BindView(R.id. tv_garden_name)
+    TextView mTvGardenName;
+    @BindView(R.id. tv_garden_address)
+    TextView mTvGardenAddress;
+    @BindView(R.id. iv_cover_img_garden)
+    ImageView mIvCoverGarden;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -82,6 +100,20 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // get the bottom sheet view
+        LinearLayout llBottomSheet = (LinearLayout) findViewById(R.id.bottom_sheet);
+
+        // init the bottom sheet behavior
+        mBottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
+
+        // change the state of the bottom sheet
+//        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+
+        mRvUsersGarden.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
     }
 
@@ -132,8 +164,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        mPresenter.setUsersAsMarkersOnMap();
-        mPresenter.setParksAsMarkersOnMap();
+//        mPresenter.setUsersAsMarkersOnMap();
+//        mPresenter.setParksAsMarkersOnMap();
     }
 
     private void setupMap(GoogleMap googleMap) {
@@ -145,13 +177,13 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (marker != null && marker.getTag() != null) {
-                    if ((Integer) marker.getTag() == 1) {
+//                    if ((Integer) marker.getTag() == 1) {
                         marker.showInfoWindow();
-                    } else {
-                        return true;
-                    }
+//                    } else {
+                        return false;
+//                    }
                 }
-                return false;
+                return true;
             }
         });
 
@@ -159,9 +191,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
             @Override
             public void onInfoWindowClick(Marker marker) {
                 if (marker != null && marker.getTag() != null) {
-                    if ((Integer) marker.getTag() == 1) {
-                        showGardenDetailsScreen();
-                    }
+                        showGardenDetailsScreen((Park) marker.getTag());
+
                 }
             }
         });
@@ -169,8 +200,14 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
         setUpClusterer();
     }
 
-    private void showGardenDetailsScreen() {
+    private void showGardenDetailsScreen(Park park) {
         Log.d("Maina", "showGardenDetailsScreen");
+        mTvGardenName.setText(park.getParkName());
+        mTvGardenAddress.setText(park.getAddress());
+        Glide.with(this).load(park.getImage()).into(mIvCoverGarden);
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
     }
 
     private void updateLocationUI() {
@@ -249,6 +286,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     }
 
     @Override
+    public RecyclerView getRvUsersGarden() {
+        return mRvUsersGarden;
+    }
+
+    @Override
     public GoogleMap getMap() {
         return mMap;
     }
@@ -256,6 +298,13 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     @Override
     public ClusterManager getClusterManager() {
         return mClusterManager;
+    }
+
+    @Override
+    public void moveToProfileScreen(User user) {
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        profileIntent.putExtra(Constants.USER_DATA_KEY, user);
+        startActivity(profileIntent);
     }
 
 

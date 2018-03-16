@@ -2,4 +2,13 @@
 <resources>
     <dimen name="pin_garden_size">100dp</dimen>
     <dimen name="small_margin">4dp</dimen>
+    <dimen name="extra_large_margin">16dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="user_list_item_img_size">60dp</dimen>
+    <dimen name="user_list_item_size">70dp</dimen>
+    <dimen name="medium_margin">8dp</dimen>
+    <dimen name="fab_garden_size">40dp</dimen>
+    <dimen name="large_margin">12dp</dimen>
 </resources>

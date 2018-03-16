@@ -2,13 +2,16 @@ package com.bestfriend.ui.maps;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 
+import com.bestfriend.OnItemClickListener;
 import com.bestfriend.model.Park;
 import com.bestfriend.R;
 import com.bestfriend.model.Park;
 import com.bestfriend.model.User;
 import com.bestfriend.network.ApiCalls;
 import com.bestfriend.network.DataObserver;
+import com.bestfriend.ui.adapters.UsersAdapter;
 import com.bestfriend.ui.base.BasePresenter;
 import com.bestfriend.ui.base.BaseView;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,15 +44,14 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
     }
 
     public void setUsersAsMarkersOnMap() {
-        if (mUsersList != null) {
-            GoogleMap map = getView().getMap();
+        GoogleMap map = getView().getMap();
+        if (mUsersList != null && map != null) {
             for (User user : mUsersList) {
                 LatLng latLng = new LatLng(user.getLat(), user.getLng());
                 Marker marker = map.addMarker(
                         new MarkerOptions().position(latLng)
-
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_user)));
-                marker.setTag(0);
+//                marker.setTag(0);
             }
 
 
@@ -65,8 +67,9 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
     }
 
     public void setParksAsMarkersOnMap() {
-        if (mParksList != null) {
-            GoogleMap map = getView().getMap();
+
+        GoogleMap map = getView().getMap();
+        if (mParksList != null && map != null) {
             for (Park park : mParksList) {
                 LatLng latLng = new LatLng(park.getLat(), park.getLng());
                 Marker marker = map.addMarker(new MarkerOptions()
@@ -74,7 +77,7 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
                         .title(park.getParkName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.oval)));
 //                marker.showInfoWindow(); // always show marker info
-                marker.setTag(1);
+                marker.setTag(park);
             }
 
 //            for (Park park : mParksList) {
@@ -97,10 +100,10 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
 
     private void loadData() {
-//        loadUsers();
-//        loadParks();
-        loadUsersTest();
-        loadParksTest();
+        loadUsers();
+        loadParks();
+//        loadUsersTest();
+//        loadParksTest();
     }
 
     private void loadParksTest() {
@@ -117,7 +120,11 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
             @Override
             public void onReceived(List<Park> parks) {
                 Log.d("Parks recieved", "Recieved!" + parks.toString());
+                mParksList = parks;
+                setParksAsMarkersOnMap();
             }
+
+
         };
 
         ApiCalls.getParks(observer);
@@ -126,11 +133,11 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
     private void loadUsersTest() {
         mUsersList = new ArrayList<>();
-        mUsersList.add(new User("1", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794145f, null, null));
-        mUsersList.add(new User("2", "itay",  "itay@gmail.com", "0123", 32.070085f, 34.794145f, null, null));
-        mUsersList.add(new User("3", "itay",  "itay@gmail.com", "0123", 32.070090f, 34.794145f, null, null));
-        mUsersList.add(new User("4", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794155f, null, null));
-        mUsersList.add(new User("5", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794165f, null, null));
+        mUsersList.add(new User("1", "itay", "itay@gmail.com", "0123", 32.070080f, 34.794145f, null, null));
+        mUsersList.add(new User("2", "itay", "itay@gmail.com", "0123", 32.070085f, 34.794145f, null, null));
+        mUsersList.add(new User("3", "itay", "itay@gmail.com", "0123", 32.070090f, 34.794145f, null, null));
+        mUsersList.add(new User("4", "itay", "itay@gmail.com", "0123", 32.070080f, 34.794155f, null, null));
+        mUsersList.add(new User("5", "itay", "itay@gmail.com", "0123", 32.070080f, 34.794165f, null, null));
     }
 
     @Override
@@ -142,15 +149,29 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
             @Override
             public void onReceived(List<User> users) {
                 Log.d("Parks recieved", "Recieved!" + users.toString());
+                mUsersList = users;
+                setUsersAsMarkersOnMap();
+                setUsersInGardenList();
             }
+
         };
         ApiCalls.getUsers(observer);
 
     }
 
+    private void setUsersInGardenList() {
+        UsersAdapter adapter = new UsersAdapter(getView().getActivityContext(), mUsersList, new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, Object object) {
+                getView().moveToProfileScreen((User)object);
+            }
+        });
+        getView().getRvUsersGarden().setAdapter(adapter);
+    }
+
     @Override
     public void createDog() {
-      //  ApiCalls.uploadDogDetails();
+        //  ApiCalls.uploadDogDetails();
     }
 
 
