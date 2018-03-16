@@ -1,4 +1,4 @@
-package com.bestfriend.ui;
+package com.bestfriend.ui.Register;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,8 @@ import android.widget.Spinner;
 import com.bestfriend.R;
 import com.bestfriend.model.Dog;
 import com.bestfriend.model.User;
-import com.bestfriend.network.ApiCalls;
 import com.bestfriend.ui.base.BaseActivity;
-import com.bestfriend.ui.login.PresenterImp;
-import com.bestfriend.ui.login.RegisterContract;
 import com.bestfriend.ui.maps.MapsActivity;
-import com.bestfriend.ui.maps.MapsContract;
 import com.bestfriend.ui.utils.CircleTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

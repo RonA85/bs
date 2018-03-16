@@ -2,25 +2,18 @@ package com.bestfriend.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 
 import com.bestfriend.R;
-import com.bestfriend.ui.RegisterActivity;
+import com.bestfriend.ui.Register.RegisterActivity;
 import com.bestfriend.ui.base.BaseActivity;
 import com.bestfriend.ui.maps.MapsActivity;
-import com.facebook.FacebookSdk;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
 

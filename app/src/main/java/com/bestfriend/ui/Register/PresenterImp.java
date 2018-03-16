@@ -1,8 +1,5 @@
-package com.bestfriend.ui.login;
+package com.bestfriend.ui.Register;
 
-import android.util.Log;
-
-import com.bestfriend.model.Dog;
 import com.bestfriend.model.User;
 import com.bestfriend.network.ApiCalls;
 import com.bestfriend.network.DataObserver;

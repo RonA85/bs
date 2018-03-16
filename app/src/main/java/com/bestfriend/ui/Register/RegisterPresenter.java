@@ -1,4 +1,4 @@
-package com.bestfriend.ui.login;
+package com.bestfriend.ui.Register;
 
 import com.bestfriend.model.Dog;
 
