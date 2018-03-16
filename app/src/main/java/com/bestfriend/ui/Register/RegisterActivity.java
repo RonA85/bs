@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bestfriend.R;
@@ -40,6 +41,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
 /**
  * Created by mac on 15/03/2018.
  */
@@ -56,8 +58,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     EditText etDogName;
     @BindView(R.id.et_dog_breed)
     EditText etDogBreed;
-    @BindView(R.id.et_dog_birth)
-    EditText etDogBirth;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
     @BindView(R.id.et_gender)
     Spinner spinnerGender;
     private Calendar calendar;
@@ -81,7 +83,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     }
 
-    @OnClick({R.id.btn_next, R.id.fab_add_picture})
+    @OnClick({R.id.btn_next, R.id.fab_add_picture,R.id.tv_date})
     public void goToMap(View view) {
         switch (view.getId()) {
             case R.id.fab_add_picture:
@@ -94,6 +96,10 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
             case R.id.btn_next:
                 presenterImp.onRegisterClick();
                 break;
+            case R.id.tv_date:
+                datePickerDialog.show();
+                break;
+
         }
 
     }
@@ -112,8 +118,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     protected void initUi() {
         Glide.with(this)
                 .load("https://image.ibb.co/ee0haH/user_alex.png")
-                .crossFade()
-                //.thumbnail(0.5f)
+              //  .crossFade()
+                .thumbnail(0.5f)
                 .bitmapTransform(new CircleTransform(this))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivAvatar);
@@ -156,9 +162,9 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         String fullName = etFullName.getText().toString().trim();
         String dogName = etDogName.getText().toString().trim();
         String dogBreed = etDogBreed.getText().toString().trim();
-        String dogBirth = etDogBirth.getText().toString().trim();
+        String dogBirth = tvDate.getText().toString().trim();
         String dogGender = spinnerGender.getSelectedItem().toString();
-        Dog dog = new Dog(dogName, dogBirth, dogBreed, dogGender);
+        Dog dog = new Dog(dogName, dogBreed, dogBirth, dogGender);
 
         User user = new User(fullName, dog);
         return user;
@@ -185,7 +191,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        datePickerDialog.show();
+      //  datePickerDialog.show();
+        tvDate.setText(String.format(Locale.getDefault(),"%d/%02d/%d",i2,i1,i));
     }
 }
 

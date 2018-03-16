@@ -47,6 +47,7 @@
         android:layout_width="278dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/white"
         android:hint="Dog Name"
         android:textColorHint="@color/white" />
 
@@ -55,6 +56,7 @@
         android:layout_width="278dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/white"
         android:hint="Dog's Breed"
         android:textColorHint="@color/white" />
 
@@ -64,13 +66,14 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <DatePicker
-            android:id="@+id/et_dog_birth"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_weight="1"
-            android:hint="Dog's Birthday"
-            android:textColorHint="@color/white" />
+       <TextView
+           android:id="@+id/tv_date"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:clickable="true"
+           android:hint="16/03/2018"
+           android:textColorHint="@color/white"
+           android:layout_weight="1"/>
 
         <Spinner
             android:id="@+id/et_gender"
