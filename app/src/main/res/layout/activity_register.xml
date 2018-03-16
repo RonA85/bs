@@ -25,6 +25,7 @@
             android:layout_width="29dp"
             android:layout_marginRight="120dp"
             android:src="@drawable/shape"
+            android:scaleType="center"
             android:layout_height="29dp"
             android:layout_gravity="bottom|end" />
 
