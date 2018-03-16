@@ -12,10 +12,14 @@ public class User
 {
 	@SerializedName("id")
 	private String id;
-	@SerializedName("firstName")
-	private String firstName;
-	@SerializedName("lastName")
-	private String lastName;
+	@SerializedName("fullName")
+	private String fullName;
+	@SerializedName("dog")
+	private Dog dog;
+//	@SerializedName("lastName")
+//	private String lastName;
+	@SerializedName("imageProfile")
+	private String imageProfile;
 	@SerializedName("email")
 	private String email;
 	@SerializedName("phone")
@@ -29,12 +33,11 @@ public class User
 	@SerializedName("images")
 	private List<String> images;
 
-
 	//Test constructor
-	public User(String id, String firstName, String lastName, String email, String phone, double lat, double lng, List<Dog> dogList, List<String> images) {
+	public User(String id, String fullName, String email, String phone, double lat, double lng, List<Dog> dogList, List<String> images) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = fullName;
+		//this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
 		this.lat = lat;
@@ -43,21 +46,24 @@ public class User
 		this.images = images;
 	}
 
+	public User(String fullName, Dog dog) {
+		this.fullName = fullName;
+		this.dog = dog;
+	}
+
 	public String getId()
 	{
 		return id;
 	}
-	
-	public String getFirstName()
-	{
-		return firstName;
+
+	public String getFullName() {
+		return fullName;
 	}
-	
-	public String getLastName()
-	{
-		return lastName;
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	
+
 	public String getEmail()
 	{
 		return email;
@@ -84,5 +90,21 @@ public class User
 
 	public double getLng() {
 		return lng;
+	}
+
+	public String getImageProfile() {
+		return imageProfile;
+	}
+
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
+	}
+
+	public Dog getDog() {
+		return dog;
+	}
+
+	public void setDog(Dog dog) {
+		this.dog = dog;
 	}
 }

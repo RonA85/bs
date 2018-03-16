@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.bestfriend.R;
+import com.bestfriend.ui.RegisterActivity;
 import com.bestfriend.ui.base.BaseActivity;
 import com.bestfriend.ui.maps.MapsActivity;
 import com.facebook.FacebookSdk;
@@ -57,7 +58,8 @@ public class LoginActivity extends BaseActivity {
 //                                .build(),
 //                        RC_SIGN_IN);
 
-                goToMapsActivity();
+                //goToMapsActivity();
+                goToRegisterActivity();
             }
         }, SPLASH_DELAY);
     }
@@ -96,6 +98,12 @@ public class LoginActivity extends BaseActivity {
     private void goToMapsActivity() {
         Intent mapsIntent = new Intent(this, MapsActivity.class);
         startActivity(mapsIntent);
+        finish();
+    }
+
+    private void goToRegisterActivity() {
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        startActivity(registerIntent);
         finish();
     }
 

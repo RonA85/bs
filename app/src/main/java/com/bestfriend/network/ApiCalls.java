@@ -2,6 +2,7 @@ package com.bestfriend.network;
 
 import android.util.Log;
 
+import com.bestfriend.model.Dog;
 import com.bestfriend.model.Park;
 import com.bestfriend.model.User;
 
@@ -20,7 +21,7 @@ public class ApiCalls {
     private static final String TAG = "ApiCalls";
 
     public static void getParks (final DataObserver<List<Park>> observer){
-        UsersApi api = RetrofitClient.getInstance().create(UsersApi.class);
+        ApiService api = RetrofitClient.getInstance().create(ApiService.class);
         Call<List<Park>> call = api.loadParks();
 
         call.enqueue(new Callback<List<Park>>() {
@@ -43,7 +44,7 @@ public class ApiCalls {
     }
 
     public static void getUsers (final DataObserver<List<User>> observer){
-        UsersApi api = RetrofitClient.getInstance().create(UsersApi.class);
+        ApiService api = RetrofitClient.getInstance().create(ApiService.class);
         Call<List<User>> call = api.loadUsers();
 
         call.enqueue(new Callback<List<User>>() {
@@ -55,7 +56,7 @@ public class ApiCalls {
 
                 Log.d(TAG, "onResponse: \n" +
                         "name: " + usersList.get(0).getId() + "\n" +
-                        "address: " + usersList.get(0).getFirstName() + "\n" );
+                        "address: " + usersList.get(0).getFullName() + "\n" );
             }
 
             @Override
@@ -64,4 +65,46 @@ public class ApiCalls {
             }
         });
     }
+
+    public static void createNewUser(final DataObserver<User> observer, final User user){
+        ApiService api = RetrofitClient.getInstance().create(ApiService.class);
+        Call<User> call = api.createUser(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user1 = response.body();
+                observer.onRecieved(user1);
+                Log.d(TAG, "onResponse: \n" +
+//                        "name: " + user.getFullName() + "\n" +
+//                        "gender: " + dog1.getDogGender() + "\n" +
+                        "name: " + user.getFullName() + "\n" );
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+    }
+
+//    public static void uploadDogDetails(){
+//        ApiService api = RetrofitClient.getInstance().create(ApiService.class);
+//        Dog dog = new Dog("Dubi","3","male");
+//        Call<Dog> call = api.createDog(dog);
+//        call.enqueue(new Callback<Dog>() {
+//            @Override
+//            public void onResponse(Call<Dog> call, Response<Dog> response) {
+//                Dog dog1 = response.body();
+//                Log.d(TAG, "onResponse: \n" +
+//                        "name: " + dog1.getDogName() + "\n" +
+//                        "gender: " + dog1.getDogGender() + "\n" +
+//                        "age: " + dog1.getDogAge() + "\n" );
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Dog> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 }

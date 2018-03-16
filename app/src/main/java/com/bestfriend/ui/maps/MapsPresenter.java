@@ -33,6 +33,7 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
     private List<User> mUsersList;
     private List<Park> mParksList;
 
+
     @Override
     public void attachView(MapsContract.View view) {
         super.attachView(view);
@@ -125,11 +126,11 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
     private void loadUsersTest() {
         mUsersList = new ArrayList<>();
-        mUsersList.add(new User("1", "itay", "cobo", "itay@gmail.com", "0123", 32.070080f, 34.794145f, null, null));
-        mUsersList.add(new User("2", "itay", "cobo", "itay@gmail.com", "0123", 32.070085f, 34.794155f, null, null));
-        mUsersList.add(new User("3", "itay", "cobo", "itay@gmail.com", "0123", 32.070090f, 34.794165f, null, null));
-        mUsersList.add(new User("4", "itay", "cobo", "itay@gmail.com", "0123", 32.070280f, 34.794155f, null, null));
-        mUsersList.add(new User("5", "itay", "cobo", "itay@gmail.com", "0123", 32.070180f, 34.794165f, null, null));
+        mUsersList.add(new User("1", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794145f, null, null));
+        mUsersList.add(new User("2", "itay",  "itay@gmail.com", "0123", 32.070085f, 34.794145f, null, null));
+        mUsersList.add(new User("3", "itay",  "itay@gmail.com", "0123", 32.070090f, 34.794145f, null, null));
+        mUsersList.add(new User("4", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794155f, null, null));
+        mUsersList.add(new User("5", "itay",  "itay@gmail.com", "0123", 32.070080f, 34.794165f, null, null));
     }
 
     @Override
@@ -146,6 +147,11 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
 
         ApiCalls.getUsers(observer);
 
+    }
+
+    @Override
+    public void createDog() {
+      //  ApiCalls.uploadDogDetails();
     }
 
 

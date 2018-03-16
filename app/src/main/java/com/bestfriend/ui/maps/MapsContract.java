@@ -30,6 +30,8 @@ public interface MapsContract
 	interface Presenter {
 		
 		void loadUsers();
+
+		void createDog();
 		
 	}
 }

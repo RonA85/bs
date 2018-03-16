@@ -6,7 +6,7 @@ package com.bestfriend.network;
 
 public interface DataObserver<Data> {
 
-    public void onRecieved(Data data);
+    public void onReceived(Data data);
 
 
 }
