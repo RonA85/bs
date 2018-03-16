@@ -144,7 +144,6 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
                 Log.d("Parks recieved", "Recieved!" + users.toString());
             }
         };
-
         ApiCalls.getUsers(observer);
 
     }

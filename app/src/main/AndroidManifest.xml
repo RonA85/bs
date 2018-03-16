@@ -38,6 +38,7 @@
             android:label="@string/title_activity_maps">
 
         </activity>
+        <activity android:name=".ui.Activities.ProfileActivity"/>
         <activity
             android:name=".ui.Register.RegisterActivity"
             android:label="@string/title_activity_register">

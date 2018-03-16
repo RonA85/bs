@@ -73,4 +73,20 @@ public class Dog
 	public void setDogBirth(String dogBirth) {
 		this.dogBirth = dogBirth;
 	}
+
+	public String getDogAge() {
+		return dogAge;
+	}
+
+	public void setDogAge(String dogAge) {
+		this.dogAge = dogAge;
+	}
+
+	public String getDogBreed() {
+		return dogBreed;
+	}
+
+	public void setDogBreed(String dogBreed) {
+		this.dogBreed = dogBreed;
+	}
 }
