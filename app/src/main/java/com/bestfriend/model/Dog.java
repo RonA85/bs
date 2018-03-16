@@ -33,7 +33,7 @@ public class Dog implements Parcelable {
 		this.dogName = name;
 		this.dogBreed = breed;
 		this.dogBirth = birth;
-		this.dogGender = dogGender;
+		this.dogGender = gender;
 	}
 
 //	public String getId()
