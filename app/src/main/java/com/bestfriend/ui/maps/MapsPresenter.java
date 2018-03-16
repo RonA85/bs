@@ -1,5 +1,6 @@
 package com.bestfriend.ui.maps;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.bestfriend.model.Park;
@@ -12,10 +13,13 @@ import com.bestfriend.ui.base.BasePresenter;
 import com.bestfriend.ui.base.BaseView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +44,21 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
             GoogleMap map = getView().getMap();
             for (User user : mUsersList) {
                 LatLng latLng = new LatLng(user.getLat(), user.getLng());
-                map.addMarker(new MarkerOptions().position(latLng).title(user.getFirstName())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_user)));
+                Marker marker = map.addMarker(
+                        new MarkerOptions().position(latLng)
+
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_user)));
+                marker.setTag(0);
             }
+
+
+//            ClusterManager clusterManager = getView().getClusterManager();
+//            // Add ten cluster items in close proximity, for purposes of this example.
+//            for (User user : mUsersList) {
+//                CustomClusterItem offsetItem = new CustomClusterItem(user.getLat(), user.getLng());
+//                clusterManager.addItem(offsetItem);
+//            }
+
 
         }
     }
@@ -55,18 +71,26 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(park.getParkName())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.transparent_pin)));
-                marker.showInfoWindow(); // always show marker info
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.oval)));
+//                marker.showInfoWindow(); // always show marker info
+                marker.setTag(1);
             }
 
-//            PolylineOptions rectOptions = new PolylineOptions()
-//                    .add(new LatLng(32.053365, 34.785400))
-//                    .add(new LatLng(32.052251, 34.785400))  // North of the previous point, but at the same longitude
-//                    .add(new LatLng(32.052251, 34.788157))  // Same latitude, and 30km to the west
-//                    .add(new LatLng(32.0472269, 34.788157))  // Same longitude, and 16km to the south
-//                    .add(new LatLng(32.053365, 34.785400))  // Closes the polyline.
-//                  ; // Closes the polyline.
-//            map.addPolyline(rectOptions);
+//            for (Park park : mParksList) {
+//                LatLng latLng = new LatLng(park.getLat(), park.getLng());
+//                // Instantiates a new CircleOptions object and defines the center and radius
+//                CircleOptions circleOptions = new CircleOptions()
+//                        .center(latLng)
+//                        .radius(200); // In meters
+//
+//                // Get back the mutable Circle
+//                Circle circle = map.addCircle(circleOptions);
+//                circle.setClickable(true);
+//                circle.setTag(1);
+//                circle.setStrokeColor(Color.RED);
+//
+//            }
+
         }
     }
 
@@ -81,6 +105,7 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
     private void loadParksTest() {
         mParksList = new ArrayList<>();
         mParksList.add(new Park("1", "Google park", "Alon 98 TLV", 32.070080, 34.794145));
+        mParksList.add(new Park("2", "Assuta park", "Alon 94 TLV", 32.069578, 34.793731));
 
     }
 

@@ -27,17 +27,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.android.clustering.ClusterManager;
 
 import butterknife.OnClick;
 
 /**
  * Created by Avishay on 06/03/2018.
  */
-public class MapsActivity extends BaseActivity implements OnMapReadyCallback , MapsContract.View{
+public class MapsActivity extends BaseActivity implements OnMapReadyCallback, MapsContract.View {
 
     private static final float DEFAULT_ZOOM = 17.0f;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 7485;
@@ -51,10 +54,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
     //	private PlaceDetectionClient mPlaceDetectionClient;
 
     private MapsPresenter mPresenter;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(mPresenter == null){
+        if (mPresenter == null) {
             mPresenter = new MapsPresenter();
         }
         mPresenter.attachView(this);
@@ -79,8 +83,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-     }
-
+    }
 
 
     private void getLocationPermission() {
@@ -121,14 +124,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        //Set Custom InfoWindow Adapter
-        InfoWindowPinGardenAdapter adapter = new InfoWindowPinGardenAdapter( getLayoutInflater());
-        mMap.setInfoWindowAdapter(adapter);
-        //		// Add a marker in Sydney and move the camera
-        //		LatLng sydney = new LatLng(-34, 151);
-        //		mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //		mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        setupMap(googleMap);
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -138,6 +134,43 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
 
         mPresenter.setUsersAsMarkersOnMap();
         mPresenter.setParksAsMarkersOnMap();
+    }
+
+    private void setupMap(GoogleMap googleMap) {
+        mMap = googleMap;
+        //Set Custom InfoWindow Adapter
+        InfoWindowPinGardenAdapter adapter = new InfoWindowPinGardenAdapter(getLayoutInflater());
+        mMap.setInfoWindowAdapter(adapter);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker != null && marker.getTag() != null) {
+                    if ((Integer) marker.getTag() == 1) {
+                        marker.showInfoWindow();
+                    } else {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                if (marker != null && marker.getTag() != null) {
+                    if ((Integer) marker.getTag() == 1) {
+                        showGardenDetailsScreen();
+                    }
+                }
+            }
+        });
+
+        setUpClusterer();
+    }
+
+    private void showGardenDetailsScreen() {
+        Log.d("Maina", "showGardenDetailsScreen");
     }
 
     private void updateLocationUI() {
@@ -220,5 +253,46 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback , M
         return mMap;
     }
 
+    @Override
+    public ClusterManager getClusterManager() {
+        return mClusterManager;
+    }
+
+
+    // Declare a variable for the cluster manager.
+    private ClusterManager<CustomClusterItem> mClusterManager;
+
+    private void setUpClusterer() {
+        // Position the map.
+//        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+
+        // Initialize the manager with the context and the map.
+        // (Activity extends context, so we can pass 'this' in the constructor.)
+        mClusterManager = new ClusterManager<CustomClusterItem>(this, mMap);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+//        getMap().setOnCameraIdleListener(mClusterManager);
+//        getMap().setOnMarkerClickListener(mClusterManager);
+//
+//        // Add cluster items (markers) to the cluster manager.
+//        addItems();
+    }
+
+    private void addItems() {
+
+        // Set some lat/lng coordinates to start with.
+        double lat = 51.5145160;
+        double lng = -0.1270060;
+
+        // Add ten cluster items in close proximity, for purposes of this example.
+        for (int i = 0; i < 10; i++) {
+            double offset = i / 60d;
+            lat = lat + offset;
+            lng = lng + offset;
+            CustomClusterItem offsetItem = new CustomClusterItem(lat, lng);
+            mClusterManager.addItem(offsetItem);
+        }
+    }
 
 }

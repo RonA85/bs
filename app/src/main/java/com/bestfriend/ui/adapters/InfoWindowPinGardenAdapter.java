@@ -24,11 +24,6 @@ public class InfoWindowPinGardenAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoWindow(Marker marker) {
-        return null;
-    }
-
-    @Override
-    public View getInfoContents(Marker marker) {
         View view = layoutInflater.inflate(R.layout.info_window_pin_garden, null);
 
         TextView tvTitle = (TextView) view.findViewById(R.id.tv_title_pin_garden);
@@ -38,5 +33,13 @@ public class InfoWindowPinGardenAdapter implements GoogleMap.InfoWindowAdapter {
 //        tvSubTitle.setText(marker.getSnippet());
 
         return view;
+
     }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
+
+
 }
