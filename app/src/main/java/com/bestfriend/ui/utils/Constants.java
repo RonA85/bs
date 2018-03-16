@@ -5,5 +5,5 @@ package com.bestfriend.ui.utils;
  */
 
 public class Constants {
-    private static final String USER_DATA_KEY= "User_Data_Key";
+    public static final String USER_DATA_KEY= "User_Data_Key";
 }

@@ -21,7 +21,7 @@
             tools:src="@drawable/img_dog_1" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -46,11 +46,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/userProfileImage"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_dog_1" />
             <TextView
+                android:id="@+id/userProfileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -59,7 +61,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/dogName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -68,7 +69,7 @@
             android:textColor="#29b6f6"
             android:textSize="13sp"
             android:textStyle="normal"
-            tools:text="Dog’s name" />
+            android:text="Dog’s name" />
 
         <View
             android:layout_width="match_parent"
@@ -77,10 +78,9 @@
             android:background="#d7d7d7" />
 
         <TextView
+            android:id="@+id/dogName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif"
             android:textColor="#444444"
@@ -115,8 +115,10 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/gender"/>
                 <TextView
+                    android:id="@+id/dogGender"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:textSize="12sp"
                     tools:text="Male"/>
             </LinearLayout>
             <LinearLayout
@@ -133,11 +135,12 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gender"/>
+                    android:src="@drawable/breed"/>
                 <TextView
+                    android:id="@+id/dogBreed"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:textAlignment="center"
+                    android:textSize="12sp"
                     tools:text="Jack Russel"/>
             </LinearLayout>
             <LinearLayout
@@ -154,10 +157,12 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gender"/>
+                    android:src="@drawable/cake"/>
                 <TextView
+                    android:id="@+id/dogAge"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:textSize="12sp"
                     tools:text="5"/>
             </LinearLayout>
             <LinearLayout
@@ -174,10 +179,12 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gender"/>
+                    android:src="@drawable/injection"/>
                 <TextView
+                    android:id="@+id/dogVaccinated"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:textSize="12sp"
                     tools:text="Yes"/>
             </LinearLayout>
             <LinearLayout
@@ -194,8 +201,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gender"/>
+                    android:src="@drawable/first_aid_kit"/>
                 <TextView
+                    android:id="@+id/dogNeutered"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     tools:text="No"/>
@@ -214,6 +222,7 @@
             android:layout_marginLeft="16dp"
             android:textColor="#29b6f6"/>
         <TextView
+            android:id="@+id/favoriteGarden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Meir Garden (20:00-22:00)"
@@ -227,6 +236,7 @@
             android:layout_marginLeft="16dp"
             android:textColor="#29b6f6"/>
         <TextView
+            android:id="@+id/dogLoveToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
