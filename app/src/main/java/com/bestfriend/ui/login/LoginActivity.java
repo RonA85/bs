@@ -43,17 +43,17 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void run() {
                 //TODO: allow it after working on map
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .setTheme(R.style.AppTheme_LoginBackground)
-                                .setLogo(R.drawable.login_img)
-                                .build(),
-                        RC_SIGN_IN);
+//                startActivityForResult(
+//                        AuthUI.getInstance()
+//                                .createSignInIntentBuilder()
+//                                .setAvailableProviders(providers)
+//                                .setTheme(R.style.AppTheme_LoginBackground)
+//                               // .setLogo(R.drawable.login_img)
+//                                .build(),
+//                        RC_SIGN_IN);
 
 //                goToMapsActivity();
-//                goToRegisterActivity();
+                goToRegisterActivity();
             }
         }, SPLASH_DELAY);
     }
@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity {
             } else {
                 // Sign in failed, check response for error code
                 goToMapsActivity();
+
             }
         }
     }

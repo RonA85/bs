@@ -1,11 +1,16 @@
 package com.bestfriend.ui.Register;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,7 +18,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -33,6 +40,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -46,7 +54,7 @@ import butterknife.OnClick;
  * Created by mac on 15/03/2018.
  */
 
-public class RegisterActivity extends BaseActivity implements RegisterContract.View,DatePickerDialog.OnDateSetListener {
+public class RegisterActivity extends BaseActivity implements RegisterContract.View, DatePickerDialog.OnDateSetListener {
 
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
@@ -66,6 +74,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     private int year, month, day;
     DatePickerDialog datePickerDialog;
     PresenterImp presenterImp;
+    public static final int REQUEST_CODE_FILE_IMAGE = 1555;
 
 
     @Override
@@ -79,18 +88,22 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(
-                this,this, year, month, day);
+                this, this, year, month, day);
 
     }
 
-    @OnClick({R.id.btn_next, R.id.fab_add_picture,R.id.tv_date})
+    @OnClick({R.id.btn_next, R.id.fab_add_picture, R.id.tv_date})
     public void goToMap(View view) {
         switch (view.getId()) {
             case R.id.fab_add_picture:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, PermissionsUtils.REQUEST_PERMS_STORAGE, PermissionsUtils.REQUEST_CODE_STORAGE);
                 } else {
-                    showToast("Not available yet");
+                    Intent intent_upload = new Intent(Intent.ACTION_PICK,
+                            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                    intent_upload.setType("image/*");
+                    intent_upload.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent_upload, REQUEST_CODE_FILE_IMAGE);
                 }
                 break;
             case R.id.btn_next:
@@ -118,7 +131,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     protected void initUi() {
         Glide.with(this)
                 .load("https://image.ibb.co/ee0haH/user_alex.png")
-              //  .crossFade()
+                //  .crossFade()
                 .thumbnail(0.5f)
                 .bitmapTransform(new CircleTransform(this))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -181,6 +194,11 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         if (requestCode == PermissionsUtils.REQUEST_CODE_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showToast("Storage permission accepted");
+                Intent intent_upload = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                intent_upload.setType("image/*");
+                intent_upload.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent_upload, REQUEST_CODE_FILE_IMAGE);
             } else {
                 showToast("Storage permission denied");
             }
@@ -188,11 +206,44 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_CANCELED) return;
+        switch (requestCode) {
+
+            case REQUEST_CODE_FILE_IMAGE:
+//
+                //  Result from Gallery
+                Uri resultFromGallery = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor imageCursor = null;
+                if (resultFromGallery != null) {
+                    imageCursor = getContentResolver().query(resultFromGallery, filePathColumn, null, null, null);
+                }
+                String picturePath = "";
+                if (imageCursor != null) {
+                    imageCursor.moveToFirst();
+                    int columnIndex = imageCursor.getColumnIndex(filePathColumn[0]);
+                    picturePath = imageCursor.getString(columnIndex);
+                    imageCursor.close();
+                }
+
+                Bitmap resizedGallery = BitmapFactory.decodeFile(picturePath);
+                Glide.with(this)
+                        .load(resizedGallery)
+                        .crossFade()
+                        .thumbnail(0.5f)
+                        .bitmapTransform(new CircleTransform(this))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(ivAvatar);
+                break;
+        }
+    }
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-      //  datePickerDialog.show();
-        tvDate.setText(String.format(Locale.getDefault(),"%d/%02d/%d",i2,i1,i));
+        //  datePickerDialog.show();
+        tvDate.setText(String.format(Locale.getDefault(), "%d/%02d/%d", i2, i1, i));
     }
 }
 
