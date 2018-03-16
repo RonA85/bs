@@ -109,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#29b6f6"
+                    android:textSize="10sp"
                     android:text="Gender"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -131,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#29b6f6"
+                    android:textSize="10sp"
                     android:text="Breed"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -148,6 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="10sp"
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
@@ -175,6 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#29b6f6"
+                    android:textSize="10sp"
                     android:text="vaccinated"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -197,6 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#29b6f6"
+                    android:textSize="10sp"
                     android:text="neutered"/>
                 <ImageView
                     android:layout_width="wrap_content"

@@ -16,8 +16,8 @@ public class Dog implements Parcelable {
 //	private String id;
 	@SerializedName("name")
 	private String dogName;
-//	@SerializedName("age")
-//	private String dogAge;
+	@SerializedName("age")
+	private String dogAge;
 	@SerializedName("breed")
 	private String dogBreed;
 	@SerializedName("gender")
@@ -76,13 +76,13 @@ public class Dog implements Parcelable {
 		this.dogBirth = dogBirth;
 	}
 
-//	public String getDogAge() {
-//		return dogAge;
-//	}
-//
-//	public void setDogAge(String dogAge) {
-//		this.dogAge = dogAge;
-//	}
+	public String getDogAge() {
+	return dogAge;
+	}
+
+	public void setDogAge(String dogAge) {
+		this.dogAge = dogAge;
+	}
 
 
 	public String getImage() {

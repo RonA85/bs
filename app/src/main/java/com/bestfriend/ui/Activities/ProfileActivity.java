@@ -53,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
                 dogName.setText(user.getDog().getDogName());
                 dogGender.setText(user.getDog().getDogGender());
                 dogBreed.setText(user.getDog().getDogBreed());
-//                dogAge.setText(user.getDog().getDogAge());
+                dogAge.setText("5");
                 dogVaccinated.setText("Yes");
                 dogNeutered.setText("No");
                 dogFavoritegardens.setText("Meir Garden (20:00-22:00)");
