@@ -29,7 +29,7 @@ public class ApiCalls {
             public void onResponse(Call<List<Park>> call, Response<List<Park>> response) {
 
                 List<Park> parksList = response.body();
-                observer.onRecieved(parksList);
+                observer.onReceived(parksList);
 
                 Log.d(TAG, "onResponse: \n" +
                         "name: " + parksList.get(0).getParkName() + "\n" +
@@ -52,7 +52,7 @@ public class ApiCalls {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
 
                 List<User> usersList = response.body();
-                observer.onRecieved(usersList);
+                observer.onReceived(usersList);
 
                 Log.d(TAG, "onResponse: \n" +
                         "name: " + usersList.get(0).getId() + "\n" +
@@ -73,7 +73,7 @@ public class ApiCalls {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user1 = response.body();
-                observer.onRecieved(user1);
+                observer.onReceived(user1);
                 Log.d(TAG, "onResponse: \n" +
 //                        "name: " + user.getFullName() + "\n" +
 //                        "gender: " + dog1.getDogGender() + "\n" +

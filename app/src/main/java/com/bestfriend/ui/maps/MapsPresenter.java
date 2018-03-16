@@ -115,7 +115,7 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
         * */
         DataObserver<List<Park>> observer = new DataObserver<List<Park>>() {
             @Override
-            public void onRecieved(List<Park> parks) {
+            public void onReceived(List<Park> parks) {
                 Log.d("Parks recieved", "Recieved!" + parks.toString());
             }
         };
@@ -140,11 +140,10 @@ public class MapsPresenter extends BasePresenter<MapsContract.View> implements M
         * */
         DataObserver<List<User>> observer = new DataObserver<List<User>>() {
             @Override
-            public void onRecieved(List<User> users) {
+            public void onReceived(List<User> users) {
                 Log.d("Parks recieved", "Recieved!" + users.toString());
             }
         };
-
         ApiCalls.getUsers(observer);
 
     }
