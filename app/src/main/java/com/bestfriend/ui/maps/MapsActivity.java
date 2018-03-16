@@ -246,8 +246,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = (Location) task.getResult();
                             LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            mMap.setMyLocationEnabled(true);
+
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
-                            mMap.addMarker(new MarkerOptions().position(latLng));
+//                            mMap.addMarker(new MarkerOptions().position(latLng).title("I'm here!"));
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());

@@ -43,15 +43,16 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void run() {
                 //TODO: allow it after working on map
-//                startActivityForResult(
-//                        AuthUI.getInstance()
-//                                .createSignInIntentBuilder()
-//                                .setAvailableProviders(providers)
-//                                .setLogo(R.mipmap.splash)
-//                                .build(),
-//                        RC_SIGN_IN);
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setAvailableProviders(providers)
+                                .setTheme(R.style.AppTheme_LoginBackground)
+                                .setLogo(R.drawable.login_img)
+                                .build(),
+                        RC_SIGN_IN);
 
-                goToMapsActivity();
+//                goToMapsActivity();
 //                goToRegisterActivity();
             }
         }, SPLASH_DELAY);
@@ -79,11 +80,12 @@ public class LoginActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                goToMapsActivity();
+//                goToMapsActivity();
+                goToRegisterActivity();
                 // ...
             } else {
                 // Sign in failed, check response for error code
-                // ...
+                goToMapsActivity();
             }
         }
     }
